@@ -1,0 +1,261 @@
+---
+openapi: 3.0.3
+info:
+  title: please-fix-me-reporter-api API
+  version: 1.0.0-SNAPSHOT
+tags:
+- name: OfferingResource
+paths:
+  /api/v1/offerings:
+    get:
+      tags:
+      - OfferingResource
+      operationId: listAllOfferings
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Offering'
+  /api/v1/offerings/{offeringId}:
+    get:
+      tags:
+      - OfferingResource
+      operationId: findOfferingById
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offering'
+  /api/v1/offerings/{offeringId}/defects:
+    post:
+      tags:
+      - OfferingResource
+      operationId: reportDefect
+      parameters:
+      - name: offeringId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Defect'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offering'
+  /api/v1/offerings/{offeringId}/defects/{defectId}/comments:
+    post:
+      tags:
+      - OfferingResource
+      operationId: addDefectComment
+      parameters:
+      - name: defectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: offeringId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offering'
+  /api/v1/offerings/{offeringId}/defects/{defectId}/downvotes:
+    patch:
+      tags:
+      - OfferingResource
+      operationId: downVoteDefect
+      parameters:
+      - name: defectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: offeringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offering'
+  /api/v1/offerings/{offeringId}/defects/{defectId}/upvotes:
+    patch:
+      tags:
+      - OfferingResource
+      operationId: upVoteDefect
+      parameters:
+      - name: defectId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: offeringId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offering'
+components:
+  schemas:
+    Comment:
+      required:
+      - customerName
+      - details
+      type: object
+      properties:
+        id:
+          format: int32
+          type: integer
+        customerName:
+          maxLength: 50
+          minLength: 3
+          type: string
+        details:
+          maxLength: 255
+          minLength: 3
+          type: string
+        reportedOn:
+          $ref: '#/components/schemas/LocalDateTime'
+    Date:
+      format: date
+      type: string
+      example: 2022-03-10
+    Defect:
+      required:
+      - name
+      - description
+      - reportedByEmail
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+        businessName:
+          type: string
+        offeringName:
+          type: string
+        description:
+          maxLength: 255
+          minLength: 3
+          type: string
+        status:
+          type: string
+        severity:
+          format: int32
+          type: integer
+        reportedByEmail:
+          minLength: 1
+          type: string
+        reportedByName:
+          type: string
+        upVotes:
+          format: int32
+          type: integer
+        downVotes:
+          format: int32
+          type: integer
+        reportedOn:
+          $ref: '#/components/schemas/LocalDateTime'
+        comments:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+        statusChanges:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusChange'
+    LocalDateTime:
+      format: date-time
+      type: string
+      example: 2022-03-10T12:15:50
+    ObjectId:
+      type: object
+      properties:
+        timestamp:
+          format: int32
+          type: integer
+        counter:
+          format: int32
+          type: integer
+        randomValue1:
+          format: int32
+          type: integer
+        randomValue2:
+          type: integer
+        date:
+          $ref: '#/components/schemas/Date'
+    Offering:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/ObjectId'
+        name:
+          type: string
+        description:
+          type: string
+        businessName:
+          type: string
+        image:
+          type: string
+        defects:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Defect'
+    StatusChange:
+      type: object
+      properties:
+        status:
+          type: string
+        reason:
+          type: string
