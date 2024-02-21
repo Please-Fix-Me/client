@@ -1,6 +1,6 @@
 describe("Submit Defect Comment", () => {
   const noCase = { matchCase: false };
-  it("Reporting Defect", () => {
+  it("Submitting Comment", () => {
     cy.visit("/").then(() => {
       cy.contains("Report Defect", noCase)
         .click()
