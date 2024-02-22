@@ -2,7 +2,7 @@ describe("Vote On Defect", () => {
   const noCase = { matchCase: false };
   it("Voting", () => {
     cy.visit("/").then(() => {
-      cy.contains("Report Defect", noCase)
+      cy.contains("Search Products", noCase)
         .click()
         .then(() => {
           cy.contains("search for product", noCase).type("test");

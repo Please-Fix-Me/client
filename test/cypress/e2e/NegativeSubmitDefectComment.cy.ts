@@ -3,7 +3,7 @@ describe("Submit Defect Comment", () => {
 
   function init(action: Function) {
     cy.visit("/").then(() => {
-      cy.contains("Report Defect", noCase)
+      cy.contains("Search Products", noCase)
         .click()
         .then(() => {
           cy.contains("search for product", noCase).type("test");
