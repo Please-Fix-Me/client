@@ -5,7 +5,7 @@
       <div class="text-center q-mt-xl q-mb-lg">
         <div class="text-h5">Most Defective Products</div>
         <div class="subtitle-2">
-          Defective Products adn Services reported by users
+          Defective Products and Services reported by users
         </div>
       </div>
     </div>

@@ -17,8 +17,18 @@
       {{ offering.description.substring(0, 140) }}...
     </q-card-section>
     <q-card-actions>
-      <q-btn :label="upVoteLabel" icon="thumb_up_alt" flat />
-      <q-btn :label="downVoteLabel" icon="thumb_down_alt" flat />
+      <q-btn
+        @click="toOfferingPage"
+        :label="upVoteLabel"
+        icon="thumb_up_alt"
+        flat
+      />
+      <q-btn
+        @click="toOfferingPage"
+        :label="downVoteLabel"
+        icon="thumb_down_alt"
+        flat
+      />
       <q-btn @click="toOfferingPage" flat no-caps>Details</q-btn>
     </q-card-actions>
   </q-card>

@@ -6,10 +6,10 @@
           <div class="text-h3">PleaseFixMe</div>
           <div class="text-h4">Public Defect Tracking System</div>
           <div class="subtitle-2">
-            #1 platform for continous improvement and customer satisfaction
+            #1 platform for continuous improvement and customer satisfaction
           </div>
           <div>
-            <q-btn label="Report Defect" to="offerings" no-caps />
+            <q-btn label="Search Products" to="offerings" no-caps />
           </div>
         </div>
       </div>
